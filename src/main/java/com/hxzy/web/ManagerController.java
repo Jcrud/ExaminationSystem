@@ -1,0 +1,103 @@
+package com.hxzy.web;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.hxzy.pojo.TbManager;
+import com.hxzy.service.ManagerService;
+
+@Controller
+@RequestMapping("/manage")
+public class ManagerController {	
+	@Autowired
+	ManagerService  managerservice;
+	@RequestMapping("/login")
+	public String method(String managerName,String pwd,Model model,HttpServletRequest request) {
+		TbManager manager = managerservice.selectByNameAndPwd(managerName, pwd);
+		if(manager!=null) {	
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("manager",manager);
+		}else {			
+			model.addAttribute("error","用户名或密码错误");
+			return "error";	
+		}
+		return "manage/main";		
+	}
+	@RequestMapping("/managerQuery")
+	public String method1(Model model) {
+		List<TbManager> allManager = managerservice.getAllManager();		
+		model.addAttribute("managers", allManager);
+		return "manage/manager";		
+	}
+	@ResponseBody
+	@RequestMapping("/managerQueryAgain")
+	public List<TbManager> method2(Model model) {
+		
+		List<TbManager> allManager = managerservice.getAllManager();
+		return allManager;		
+	}
+	@RequestMapping("/managerAdd")
+	public void method3(TbManager manager,HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {		
+		List<TbManager> allManager = managerservice.getAllManager();
+		boolean flag=false;
+		for (TbManager tbManager : allManager) {
+			if(manager.getName().equals(tbManager.getName()) ) {
+				flag=true;
+			}
+		}
+		if(flag) {
+			request.setAttribute("error", "repeat of user name");
+			request.getRequestDispatcher("error.jsp").forward(request, response);
+		}else {
+			managerservice.addManager(manager);		
+			request.getRequestDispatcher("manager_ok.jsp?para=1").forward(request, response);
+		}
+		
+	}
+	@RequestMapping("/managerDel")
+	public void method3(String id,HttpServletRequest request,HttpServletResponse response) {
+		managerservice.delManager(Integer.parseInt(id));		
+		try {
+			request.getRequestDispatcher("manager_ok.jsp?para=3").forward(request, response);
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}			
+	}
+	/**
+	 * 修改管理员信息跳转命令
+	 */
+	@RequestMapping("/queryPWD")
+	public String method4(int id,Model model) {
+		TbManager manager = managerservice.getManagerById(id);
+		model.addAttribute("updateManager", manager);
+		return "manage/pwd_Modify";
+				
+	}
+	/**
+	 * 修改管理员信息
+	 */
+	@RequestMapping("/modifypwd")
+	public void method5(TbManager manager,HttpServletResponse response) {
+
+		managerservice.updateManager(manager);	
+		try {
+			response.sendRedirect("pwd_ok.jsp");
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}			
+	}
+	
+}

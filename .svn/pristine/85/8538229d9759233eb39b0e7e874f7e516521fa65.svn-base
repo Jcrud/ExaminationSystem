@@ -1,0 +1,40 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java"%>
+<html>
+<head>
+<title>网络在线考试</title>
+<html:base/>
+<link rel="stylesheet" href="/CSS/login.css"/>
+<script type="text/javascript" src="/JS/jquery-1.8.3.js"></script>
+<script type="text/javascript">
+function check(obj){
+	if (obj.id.value==""){
+		alert("请输入准考证号!");obj.id.focus();return false;
+	}
+	if (obj.pwd.value==""){
+		alert("请输入密码!");obj.pwd.focus();return false;
+	}
+}
+$(function(){
+	if(${erroy!=null}){
+		alert("${erroy}");
+	}
+});
+
+</script>
+
+<body>
+	<div>
+	<form id="registForm" action="frontEnd/login1" method="POST" onsubmit="return check(this)">
+	<input id="name" type="text" name="id" placeholder="请输入您的准考证号"/>
+	<input id="password" type="password" name="pwd"placeholder="请输入您的密码"/>
+	<input id="login" type="submit" value="登录"/>
+	<input id="find"  type="button" value="找回密码" onclick="window.location.href='seekPwd.jsp'" />
+	</form>
+	<div id="div1">
+	<a id="manage" href="manage/login.jsp">进入后台</a>
+	</div>
+	</div>
+</body>
+</html>
+
+

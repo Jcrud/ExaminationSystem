@@ -1,0 +1,146 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<head>
+<title>网络在线考试――后台登录</title>
+<link href="../CSS/style.css" rel="stylesheet">
+<script language="javascript">
+function check(form){
+	if (form.name.value==""){
+		alert("请输入管理员名称!");form.name.focus();return false;
+	}
+	if (form.pwd.value==""){
+		alert("请输入密码!");form.pwd.focus();return false;
+	}	
+}
+</script>
+	<style type="text/css">
+		body{
+				background: url(../Images/back.jpg) no-repeat;
+				background-size: 80%;
+				background-attachment: fixed; 
+				background-position: center center;
+			}
+			#login{
+				background: url(../Images/form.png) no-repeat;
+				background-size: 85%;
+				width: 380px;
+				height: 366px;
+				position: absolute;
+				margin: auto;
+				top: -20px;
+				bottom: 20px;
+				left: 750px;
+				right: 0;
+				padding: 60px 30px 0px 50px;
+			}
+			.biaoti{
+		  font-size: 24px;
+		  font-family: "Adobe Heiti Std";
+		  color: rgb(1, 154, 170);
+		  line-height: 1.2;	
+		  	  position: absolute;
+				margin: auto;
+				top: 50px;
+				left: 70px;
+				right: 80px;
+		}
+		#shuru1{
+			position: absolute;
+				margin: auto;
+				top: 120px;
+				left: 40px;
+				right: 80px;
+		}
+		#shuru2{
+			position: absolute;
+				margin: auto;
+				top: 170px;
+				left: 40px;
+				right: 80px;
+		}
+		#fujia{
+			position: absolute;
+				margin: auto;
+				top: 220px;
+				left: 80px;
+				right: 80px;
+		}
+		.button1{
+			background: rgb(40, 153, 240) ;
+			width: 280px;
+			height: 40px;
+			position: absolute;
+				margin: auto;
+				bottom: 60px;
+				left: 20px;
+				border-radius: 15px;
+				color: white;
+		}
+	</style>
+	<link rel="stylesheet" href="../static/bootstrap-3.3.7-dist/css/bootstrap.css" />
+	<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="../static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+</head>
+<body>
+	<!-- <table width="100%" height="100%" border="0" cellpadding="0"
+		cellspacing="0">
+		<tr>
+			<td bgcolor="#EEEEEE"><table width="464" height="294" border="0"
+					align="center" cellpadding="0" cellspacing="0"
+					background="../Images/m_login.jpg">
+					<tr>
+						<td width="157" height="153">&nbsp;</td>
+						<td width="307">&nbsp;</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td valign="top"><form
+								action="login" method="post"  onsubmit="return check(managerForm)">
+								<table width="100%" border="0" cellpadding="0" cellspacing="0"
+									>
+									<tr>
+										<td width="26%" height="30">管理员名称：</td>
+										<td width="74%"><input type="text" name="managerName" size="25" /></td>
+									</tr>
+									<tr>
+										<td height="30">管理员密码：</td>
+										<td><input type="password" name="pwd" size="25" /></td>
+									</tr>
+									<tr>
+										<td height="33" colspan="2" align="center"><input type="submit"
+												 value="确定" /> &nbsp; <input type="reset" value="重置" />&nbsp; <input type="button"
+												  value="关闭"
+												onclick="window.close();" /></td>
+									</tr>
+								</table>
+							</form></td>
+					</tr>
+				</table></td>
+		</tr>
+	</table> -->
+	<div id="login">
+			<form action="login" method="post" name="managerForm" onsubmit="return check(managerForm)">
+			
+						<p class="biaoti">智多星在线考试网</p><br />
+						<p id="shuru1">
+						 <span class="glyphicon glyphicon-user"></span> 
+						<input type="text" name="managerName"  class="shuru" placeholder="请输入账号" size="25"
+							style="border-color: rgb(40, 153, 240);border-style:solid;border-top-width: 0px;
+							 border-right-width: 0px;border-bottom-width: 1px; border-left-width: 0px"/></p>
+						<p id="shuru2">
+						<span class="glyphicon glyphicon-lock"></span>
+						<input type="password" name="pwd"  placeholder="请输入密码" size="25"
+								style="border-color: rgb(40, 153, 240);border-style: solid;border-top-width: 0px;
+									border-right-width:0px;border-bottom-width:1px;border-left-width: 0px"/></p>
+						
+						<p><input type="reset"  class="button1" value="重置" style="position:relative;left: -30px;top: 130px"/></p>						
+						<p><input class="button1"  type="submit" value="登录" /></p>
+			
+			</form>
+		</div>	
+</body>
+</html>
